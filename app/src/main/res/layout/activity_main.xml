@@ -1,91 +1,354 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:orientation="vertical" android:background="@color/screen_bg">
+    android:id="@+id/rootContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/screen_bg">
 
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:orientation="horizontal" android:gravity="center_vertical" android:padding="14dp"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="104dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="18dp"
+        android:paddingEnd="18dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
         android:background="@drawable/bg_header">
-        <ImageView android:layout_width="64dp" android:layout_height="64dp" android:src="@drawable/ic_shield_phone"
-            android:contentDescription="App logo" />
-        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
-            android:orientation="vertical" android:layout_marginStart="10dp">
-            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Selected Contacts Only V6"
-                android:textColor="#FFFFFF" android:textStyle="bold" android:textSize="21sp" />
-            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="CALL FILTER &amp; AUTO SMS"
-                android:textColor="#FFD54F" android:textStyle="bold" android:textSize="13sp" android:layout_marginTop="2dp" />
-            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="फक्त निवडलेल्या संपर्कांना कॉल करू द्या"
-                android:textColor="#FFFFFF" android:textSize="12sp" android:layout_marginTop="2dp" />
+
+        <ImageView
+            android:layout_width="58dp"
+            android:layout_height="58dp"
+            android:src="@drawable/ic_shield_phone"
+            android:contentDescription="Received Call Filter logo" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginStart="12dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:textSize="21sp"
+                android:maxLines="1"
+                android:ellipsize="end" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="CALL FILTER &amp; AUTO SMS"
+                android:textColor="@color/gold"
+                android:textStyle="bold"
+                android:textSize="13sp"
+                android:layout_marginTop="2dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="फक्त निवडलेल्या संपर्कांना कॉल करू द्या"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp"
+                android:layout_marginTop="2dp" />
         </LinearLayout>
     </LinearLayout>
 
-    <ScrollView android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1"
-        android:fillViewport="true">
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="12dp">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true"
+        android:clipToPadding="false">
 
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal"
-                android:gravity="center_vertical" android:background="@drawable/bg_card">
-                <ImageView android:layout_width="52dp" android:layout_height="52dp" android:src="@drawable/ic_shield_phone" android:contentDescription="Protection" />
-                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical" android:layout_marginStart="10dp">
-                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Master Protection" android:textColor="@color/text_dark" android:textStyle="bold" android:textSize="19sp" />
-                    <TextView android:id="@+id/status" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="FILTER OFF" android:textColor="@color/text_secondary" android:textSize="13sp" android:layout_marginTop="2dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="22dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/bg_card"
+                android:padding="14dp">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ic_shield_phone"
+                    android:contentDescription="Protection" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginStart="10dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Master Protection"
+                        android:textColor="@color/text_dark"
+                        android:textStyle="bold"
+                        android:textSize="19sp" />
+
+                    <TextView
+                        android:id="@+id/status"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="FILTER OFF • Call filtering is disabled"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="13sp"
+                        android:layout_marginTop="2dp" />
                 </LinearLayout>
-                <Switch android:id="@+id/masterSwitch" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ON" android:textStyle="bold" android:textColor="@color/green" />
+
+                <Switch
+                    android:id="@+id/masterSwitch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:showText="true"
+                    android:textOn="ON"
+                    android:textOff="OFF"
+                    android:textStyle="bold"
+                    android:textColor="@color/green" />
             </LinearLayout>
 
-            <TextView android:id="@+id/screeningStatus" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp"
-                android:background="@drawable/bg_active" android:text="✓  Call Screening status will appear here" android:textColor="#087A34" android:textStyle="bold" android:textSize="14sp" android:padding="12dp" />
+            <TextView
+                android:id="@+id/screeningStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_active"
+                android:text="✓  Call Screening status will appear here"
+                android:textColor="#087A34"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:padding="12dp" />
 
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="10dp">
-                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:background="@drawable/bg_stat" android:gravity="center" android:orientation="vertical" android:padding="10dp">
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ALLOWED" android:textColor="@color/green" android:textStyle="bold" android:textSize="12sp" />
-                    <TextView android:id="@+id/allowedCount" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textColor="@color/text_dark" android:textStyle="bold" android:textSize="22sp" />
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Contacts" android:textColor="@color/text_secondary" android:textSize="11sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_stat"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="ALLOWED" android:textColor="@color/green" android:textStyle="bold" android:textSize="12sp" />
+                    <TextView android:id="@+id/allowedCount" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="0" android:textColor="@color/text_dark" android:textStyle="bold" android:textSize="22sp" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="Contacts" android:textColor="@color/text_secondary" android:textSize="11sp" />
                 </LinearLayout>
+
                 <Space android:layout_width="6dp" android:layout_height="1dp" />
-                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:background="@drawable/bg_stat" android:gravity="center" android:orientation="vertical" android:padding="10dp">
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="SMS" android:textColor="#6A1B9A" android:textStyle="bold" android:textSize="12sp" />
-                    <TextView android:id="@+id/smsStatus" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="OFF" android:textColor="@color/text_dark" android:textStyle="bold" android:textSize="18sp" />
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Auto reply" android:textColor="@color/text_secondary" android:textSize="11sp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_stat"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="SMS" android:textColor="#6A1B9A" android:textStyle="bold" android:textSize="12sp" />
+                    <TextView android:id="@+id/smsStatus" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="OFF" android:textColor="@color/text_dark" android:textStyle="bold" android:textSize="18sp" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="Auto reply" android:textColor="@color/text_secondary" android:textSize="11sp" />
                 </LinearLayout>
+
                 <Space android:layout_width="6dp" android:layout_height="1dp" />
-                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:background="@drawable/bg_stat" android:gravity="center" android:orientation="vertical" android:padding="10dp">
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="V6" android:textColor="@color/blue_primary" android:textStyle="bold" android:textSize="12sp" />
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ACTIVE" android:textColor="@color/text_dark" android:textStyle="bold" android:textSize="18sp" />
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Version" android:textColor="@color/text_secondary" android:textSize="11sp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_stat"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="V6" android:textColor="@color/blue_primary" android:textStyle="bold" android:textSize="12sp" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="ACTIVE" android:textColor="@color/text_dark" android:textStyle="bold" android:textSize="18sp" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="Version" android:textColor="@color/text_secondary" android:textSize="11sp" />
                 </LinearLayout>
             </LinearLayout>
 
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginTop="10dp" android:background="@drawable/bg_card">
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
-                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="📩  Automatic SMS on Rejected Call" android:textColor="@color/text_dark" android:textStyle="bold" android:textSize="16sp" />
-                    <Switch android:id="@+id/smsSwitch" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ON" android:textStyle="bold" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_card"
+                android:padding="14dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="📩  Automatic SMS on Rejected Call"
+                        android:textColor="@color/text_dark"
+                        android:textStyle="bold"
+                        android:textSize="16sp" />
+
+                    <Switch
+                        android:id="@+id/smsSwitch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:showText="true"
+                        android:textOn="ON"
+                        android:textOff="OFF"
+                        android:textStyle="bold" />
                 </LinearLayout>
-                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Rejected callers receive this message" android:textColor="@color/text_secondary" android:textSize="12sp" android:layout_marginTop="2dp" />
-                <EditText android:id="@+id/smsMessage" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp"
-                    android:background="@drawable/bg_sms" android:hint="SMS message" android:textSize="14sp" android:inputType="textCapSentences|textMultiLine" android:minLines="2" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Rejected callers receive this message"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="12sp"
+                    android:layout_marginTop="2dp" />
+
+                <EditText
+                    android:id="@+id/smsMessage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_sms"
+                    android:hint="SMS message"
+                    android:textSize="14sp"
+                    android:inputType="textCapSentences|textMultiLine"
+                    android:minLines="2" />
             </LinearLayout>
 
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginTop="12dp">
-                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="👥  Allowed Contacts" android:textColor="@color/text_dark" android:textStyle="bold" android:textSize="18sp" />
-                <Button android:id="@+id/selectContact" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="+ Add Contact" android:textColor="#FFFFFF" android:background="@drawable/bg_blue_button" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="12dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="👥  Allowed Contacts"
+                    android:textColor="@color/text_dark"
+                    android:textStyle="bold"
+                    android:textSize="18sp" />
+
+                <Button
+                    android:id="@+id/selectContact"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="+ ADD CONTACT"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold"
+                    android:background="@drawable/bg_blue_button" />
             </LinearLayout>
 
-            <TextView android:id="@+id/list" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="6dp"
-                android:background="@drawable/bg_card" android:textSize="14sp" android:textColor="@color/text_dark" android:lineSpacingExtra="4dp" />
+            <TextView
+                android:id="@+id/list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:padding="14dp"
+                android:background="@drawable/bg_card"
+                android:textSize="14sp"
+                android:textColor="@color/text_dark"
+                android:lineSpacingExtra="4dp" />
 
-            <Button android:id="@+id/chooseScreening" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp"
-                android:text="⚙  Set / Check Call Screening App" android:textColor="#FFFFFF" android:textStyle="bold" android:background="@drawable/bg_blue_button" />
+            <Button
+                android:id="@+id/chooseScreening"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="⚙  SET / CHECK CALL SCREENING APP"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:background="@drawable/bg_blue_button" />
 
-            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Privacy: Contacts are used only to decide who is allowed to call you."
-                android:textColor="@color/text_secondary" android:textSize="11sp" android:gravity="center" android:layout_marginTop="12dp" android:layout_marginBottom="10dp" />
+            <Button
+                android:id="@+id/openTutorial"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="📖  APP SETTINGS TUTORIAL"
+                android:textColor="@color/blue_dark"
+                android:textStyle="bold"
+                android:background="@drawable/bg_outline_button" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="🔒 Privacy: Contacts are used only to decide who is allowed to call you."
+                android:textColor="@color/text_secondary"
+                android:textSize="11sp"
+                android:gravity="center"
+                android:layout_marginTop="12dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:background="@drawable/bg_footer"
+                android:padding="14dp"
+                android:layout_marginTop="14dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Developed by"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rahul Jagtap Patil"
+                    android:textColor="@color/gold"
+                    android:textStyle="bold"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="☎ 9921038999  •  Secure • Private • Reliable"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12sp"
+                    android:layout_marginTop="2dp" />
+            </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
-
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center"
-        android:background="@drawable/bg_footer" android:padding="12dp">
-        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Developed by" android:textColor="#FFFFFF" android:textSize="12sp" />
-        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Rahul Jagtap Patil" android:textColor="#FFD54F" android:textStyle="bold" android:textSize="18sp" />
-        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="☎ 9921038999  •  Secure • Private • Reliable" android:textColor="#FFFFFF" android:textSize="12sp" android:layout_marginTop="2dp" />
-    </LinearLayout>
 </LinearLayout>

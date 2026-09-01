@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.app.role.RoleManager;
 import android.widget.*;
+import android.view.View;
+import android.view.WindowInsets;
 import java.util.*;
 
 public class MainActivity extends Activity {
@@ -23,7 +25,18 @@ public class MainActivity extends Activity {
     private static final String DEFAULT_SMS = "सध्या मी फोन घेऊ शकत नाही. ऑफिस मध्ये संपर्क करा.";
 
     @Override public void onCreate(Bundle b) {
-        super.onCreate(b); setContentView(R.layout.activity_main);
+        super.onCreate(b);
+        setContentView(R.layout.activity_main);
+
+        View root = findViewById(R.id.rootContainer);
+        if (root != null) {
+            root.setOnApplyWindowInsetsListener((v, insets) -> {
+                v.setPadding(v.getPaddingLeft(), insets.getSystemWindowInsetTop(),
+                        v.getPaddingRight(), insets.getSystemWindowInsetBottom());
+                return insets;
+            });
+            root.requestApplyInsets();
+        }
         prefs = getSharedPreferences("filter", MODE_PRIVATE);
         master = findViewById(R.id.masterSwitch); status = findViewById(R.id.status); list = findViewById(R.id.list);
         smsSwitch = findViewById(R.id.smsSwitch);
@@ -38,6 +51,7 @@ public class MainActivity extends Activity {
                 requestPermissions(new String[]{Manifest.permission.SEND_SMS}, SMS);
             }
             prefs.edit().putBoolean("sms_enabled", c).apply();
+            refresh();
         });
         smsMessage.setOnFocusChangeListener((v,hasFocus)-> { if (!hasFocus) saveSmsMessage(); });
         master.setChecked(prefs.getBoolean("enabled", false));
@@ -54,6 +68,7 @@ public class MainActivity extends Activity {
         });
         findViewById(R.id.selectContact).setOnClickListener(v -> pickContact());
         findViewById(R.id.chooseScreening).setOnClickListener(v -> openScreeningSettings());
+        findViewById(R.id.openTutorial).setOnClickListener(v -> startActivity(new Intent(this, TutorialActivity.class)));
         if (checkSelfPermission(Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) requestPermissions(new String[]{Manifest.permission.READ_CONTACTS}, CONTACTS);
         refresh();
         updateScreeningStatus();
@@ -85,7 +100,7 @@ public class MainActivity extends Activity {
     }}
     private String normalize(String n){ String d=n==null?"":n.replaceAll("\\D",""); return d.length()>10?d.substring(d.length()-10):d; }
     private void refresh(){
-        boolean on=prefs.getBoolean("enabled",false); status.setText(on ? "FILTER ON — only selected numbers are allowed" : "FILTER OFF");
+        boolean on=prefs.getBoolean("enabled",false); status.setText(on ? "FILTER ACTIVE • Only selected contacts are allowed" : "FILTER OFF • Call filtering is disabled");
         StringBuilder s=new StringBuilder("Allowed contacts:\n"); boolean any=false; int count=0;
         Map<String,?> all=prefs.getAll(); for(String k:all.keySet()) if(k.startsWith("allow_") && Boolean.TRUE.equals(all.get(k))){ String n=k.substring(6); s.append("• ").append(all.get("name_"+n)).append("  (").append(n).append(")\n"); any=true; count++; }
         list.setText(any?s.toString():"Allowed contacts:\nNo contacts selected yet.");

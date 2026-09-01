@@ -1,9 +1,9 @@
 <resources>
     <style name="Theme.SelectedContactsOnly" parent="android:style/Theme.Material.Light.NoActionBar">
         <item name="android:fontFamily">sans</item>
-        <item name="android:colorAccent">#1976D2</item>
-        <item name="android:navigationBarColor">#F4F8FD</item>
-        <item name="android:statusBarColor">#0D47A1</item>
+        <item name="android:colorAccent">@color/blue_primary</item>
+        <item name="android:navigationBarColor">@color/screen_bg</item>
+        <item name="android:statusBarColor">@color/blue_dark</item>
         <item name="android:windowLightStatusBar">false</item>
         <item name="android:windowActionModeOverlay">true</item>
     </style>

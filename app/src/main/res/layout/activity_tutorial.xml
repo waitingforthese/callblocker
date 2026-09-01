@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tutorialRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/screen_bg">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="14dp"
+        android:paddingEnd="14dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:background="@drawable/bg_header">
+
+        <Button
+            android:id="@+id/closeTutorial"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:text="‹"
+            android:textSize="32sp"
+            android:textColor="#FFFFFF"
+            android:background="@android:color/transparent"
+            android:contentDescription="Back" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="📖 App Settings Tutorial"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:layout_marginStart="6dp" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="14dp"
+            android:paddingBottom="28dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="RECEIVED CALL FILTER कसे वापरायचे?"
+                android:textColor="@color/blue_dark"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:paddingBottom="6dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="खालील पायऱ्या क्रमाने पूर्ण करा. एकदा Call Screening App सेट केल्यानंतर निवडलेल्या संपर्कांचे calls allow करण्यासाठी Master Protection वापरता येईल."
+                android:textColor="@color/text_secondary"
+                android:textSize="14sp"
+                android:lineSpacingExtra="3dp"
+                android:paddingBottom="10dp" />
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical"
+                android:background="@drawable/bg_card" android:padding="14dp" android:layout_marginBottom="10dp">
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:text="1️⃣ Call Screening App सेट करा" android:textColor="@color/text_dark" android:textStyle="bold" android:textSize="17sp" />
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:text="Home Screen वर SET / CHECK CALL SCREENING APP दाबा. Android/Vivo Settings मध्ये RECEIVED CALL FILTER हे Call Screening App म्हणून निवडा. Status मध्ये ✓ Call Screening Active • Protected दिसल्यावर सेटिंग पूर्ण झाले."
+                    android:textColor="@color/text_secondary" android:textSize="14sp" android:lineSpacingExtra="3dp" android:layout_marginTop="7dp" />
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical"
+                android:background="@drawable/bg_card" android:padding="14dp" android:layout_marginBottom="10dp">
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:text="2️⃣ Allowed Contacts निवडा" android:textColor="@color/text_dark" android:textStyle="bold" android:textSize="17sp" />
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:text="+ ADD CONTACT दाबा आणि ज्यांना तुमच्याशी फोनवर संपर्क करता यावा असे contacts निवडा. निवडलेले contacts Allowed Contacts मध्ये दिसतील."
+                    android:textColor="@color/text_secondary" android:textSize="14sp" android:lineSpacingExtra="3dp" android:layout_marginTop="7dp" />
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical"
+                android:background="@drawable/bg_card" android:padding="14dp" android:layout_marginBottom="10dp">
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:text="3️⃣ Master Protection ON करा" android:textColor="@color/text_dark" android:textStyle="bold" android:textSize="17sp" />
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:text="Call Screening App आधी सेट केलेले असणे आवश्यक आहे. त्यानंतर Master Protection ON करा. ON असताना Allowed Contacts मधील numbers allow केले जातात आणि बाकी incoming calls reject केले जातात."
+                    android:textColor="@color/text_secondary" android:textSize="14sp" android:lineSpacingExtra="3dp" android:layout_marginTop="7dp" />
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical"
+                android:background="@drawable/bg_card" android:padding="14dp" android:layout_marginBottom="10dp">
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:text="4️⃣ Automatic SMS ON करा" android:textColor="@color/text_dark" android:textStyle="bold" android:textSize="17sp" />
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:text="Automatic SMS on Rejected Call ON केल्यास rejected caller ला तुम्ही लिहिलेला SMS पाठवला जातो. SMS permission मागितल्यास Allow करा. Message box मध्ये स्वतःचा Marathi किंवा English message लिहू शकता."
+                    android:textColor="@color/text_secondary" android:textSize="14sp" android:lineSpacingExtra="3dp" android:layout_marginTop="7dp" />
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical"
+                android:background="@drawable/bg_card" android:padding="14dp" android:layout_marginBottom="10dp">
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:text="5️⃣ SMS Permission denied दिसल्यास" android:textColor="@color/text_dark" android:textStyle="bold" android:textSize="17sp" />
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:text="Android ने SMS permission restricted/denied केली तर Settings → Apps → RECEIVED CALL FILTER → Permissions मध्ये जाऊन SMS permission उपलब्ध असल्यास Allow करा. Permission नसेल तर Automatic SMS काम करणार नाही."
+                    android:textColor="@color/text_secondary" android:textSize="14sp" android:lineSpacingExtra="3dp" android:layout_marginTop="7dp" />
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical"
+                android:background="@drawable/bg_card" android:padding="14dp" android:layout_marginBottom="10dp">
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:text="6️⃣ Status कसा समजेल?" android:textColor="@color/text_dark" android:textStyle="bold" android:textSize="17sp" />
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:text="✓ Call Screening Active • Protected = Call Screening App योग्यरित्या निवडले आहे.  ⚠ Call Screening not selected yet = Call Screening App अजून सेट केलेले नाही. Master Protection OFF = filtering बंद."
+                    android:textColor="@color/text_secondary" android:textSize="14sp" android:lineSpacingExtra="3dp" android:layout_marginTop="7dp" />
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical"
+                android:background="@drawable/bg_card" android:padding="14dp" android:layout_marginBottom="10dp">
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:text="🔒 Privacy" android:textColor="@color/text_dark" android:textStyle="bold" android:textSize="17sp" />
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:text="Contacts फक्त कोणाला call करण्याची परवानगी द्यायची हे ठरवण्यासाठी वापरले जातात."
+                    android:textColor="@color/text_secondary" android:textSize="14sp" android:lineSpacingExtra="3dp" android:layout_marginTop="7dp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="💡 टिप: Master Protection ON करण्यापूर्वी Call Screening App आणि Allowed Contacts दोन्ही तपासा."
+                android:textColor="@color/blue_dark"
+                android:textStyle="bold"
+                android:textSize="13sp"
+                android:gravity="center"
+                android:padding="10dp" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
