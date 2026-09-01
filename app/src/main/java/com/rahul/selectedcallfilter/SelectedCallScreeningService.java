@@ -11,9 +11,11 @@ import android.telecom.CallScreeningService;
  * visible in the phone/call log according to the Vivo/Android Phone app.
  */
 public class SelectedCallScreeningService extends CallScreeningService {
+    private static final String PREFS = "filter";
+    private static final String ENABLED = "enabled";
     @Override
     public void onScreenCall(Call.Details details) {
-        SharedPreferences prefs = getSharedPreferences("filter", MODE_PRIVATE);
+        SharedPreferences prefs = getSharedPreferences(PREFS, MODE_PRIVATE);
 
         if (!prefs.getBoolean("enabled", false)) {
             respondToCall(details, new CallResponse.Builder()
@@ -22,9 +24,10 @@ public class SelectedCallScreeningService extends CallScreeningService {
             return;
         }
 
-        String raw = details.getHandle() == null
-                ? ""
-                : details.getHandle().getSchemeSpecificPart();
+        String raw = details.getHandle() != null
+                && "tel".equalsIgnoreCase(details.getHandle().getScheme())
+                ? details.getHandle().getSchemeSpecificPart()
+                : "";
         String number = normalize(raw);
 
         // Empty/unknown number is not in the allow-list, so reject it.

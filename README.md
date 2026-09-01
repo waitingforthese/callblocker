@@ -20,3 +20,6 @@ This app cannot force Airtel to play the network-level "not reachable/switched o
 
 ## Vivo note
 Vivo may apply battery/background restrictions. If call screening stops working, set this app to unrestricted battery/background usage and allow it to run automatically where the Vivo model exposes those controls.
+
+
+V4 notes: instant reject response is kept as setDisallowCall(true) + setRejectCall(true), with no skip-notification flag. Caller-side ringback can still vary by carrier/network; the app cannot force an Airtel “not reachable” announcement.
