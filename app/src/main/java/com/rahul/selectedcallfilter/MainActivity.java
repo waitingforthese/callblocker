@@ -1,6 +1,4 @@
 package com.rahul.selectedcallfilter;
-
-import com.rahul.selectedcallfilter.R;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;

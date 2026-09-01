@@ -10,7 +10,7 @@
             android:contentDescription="App logo" />
         <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
             android:orientation="vertical" android:layout_marginStart="10dp">
-            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="RECEIVED CALL FILTER"
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Selected Contacts Only V6"
                 android:textColor="#FFFFFF" android:textStyle="bold" android:textSize="21sp" />
             <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="CALL FILTER &amp; AUTO SMS"
                 android:textColor="#FFD54F" android:textStyle="bold" android:textSize="13sp" android:layout_marginTop="2dp" />
