@@ -3,7 +3,7 @@
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:orientation="vertical" android:padding="20dp">
     <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:text="Selected Contacts Only" android:textSize="26sp" android:textStyle="bold" />
+        android:text="Selected Contacts Only V6" android:textSize="26sp" android:textStyle="bold" />
     <TextView android:id="@+id/status" android:layout_width="match_parent" android:layout_height="wrap_content"
         android:layout_marginTop="12dp" android:text="Status" android:textSize="16sp" />
     <Switch android:id="@+id/masterSwitch" android:layout_width="match_parent" android:layout_height="wrap_content"
