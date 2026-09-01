@@ -10,6 +10,10 @@
         android:layout_marginTop="18dp" android:text="Allow only selected people" android:textSize="18sp" />
     <Button android:id="@+id/selectContact" android:layout_width="match_parent" android:layout_height="wrap_content"
         android:layout_marginTop="18dp" android:text="+ Add allowed contact" />
+    <Switch android:id="@+id/smsSwitch" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_marginTop="10dp" android:text="Send SMS after rejected call" android:textSize="18sp" />
+    <EditText android:id="@+id/smsMessage" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_marginTop="8dp" android:hint="Rejected call SMS message" android:inputType="textCapSentences|textMultiLine" android:minLines="2" />
     <Button android:id="@+id/chooseScreening" android:layout_width="match_parent" android:layout_height="wrap_content"
         android:layout_marginTop="10dp" android:text="Set as Call Screening app" />
     <TextView android:id="@+id/list" android:layout_width="match_parent" android:layout_height="0dp"

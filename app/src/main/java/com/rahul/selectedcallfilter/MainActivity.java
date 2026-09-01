@@ -19,11 +19,26 @@ public class MainActivity extends Activity {
     private SharedPreferences prefs;
     private Switch master;
     private TextView status, list;
+    private Switch smsSwitch;
+    private EditText smsMessage;
+    private static final int SMS = 12;
+    private static final String DEFAULT_SMS = "सध्या मी फोन घेऊ शकत नाही. ऑफिस मध्ये संपर्क करा.";
 
     @Override public void onCreate(Bundle b) {
         super.onCreate(b); setContentView(R.layout.activity_main);
         prefs = getSharedPreferences("filter", MODE_PRIVATE);
         master = findViewById(R.id.masterSwitch); status = findViewById(R.id.status); list = findViewById(R.id.list);
+        smsSwitch = findViewById(R.id.smsSwitch);
+        smsMessage = findViewById(R.id.smsMessage);
+        smsSwitch.setChecked(prefs.getBoolean("sms_enabled", false));
+        smsMessage.setText(prefs.getString("sms_message", DEFAULT_SMS));
+        smsSwitch.setOnCheckedChangeListener((v,c)-> {
+            if (c && checkSelfPermission(Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.SEND_SMS}, SMS);
+            }
+            prefs.edit().putBoolean("sms_enabled", c).apply();
+        });
+        smsMessage.setOnFocusChangeListener((v,hasFocus)-> { if (!hasFocus) saveSmsMessage(); });
         master.setChecked(prefs.getBoolean("enabled", false));
         master.setOnCheckedChangeListener((v,c)->{
             if (c && !isCallScreeningRoleHeld()) {
@@ -41,6 +56,20 @@ public class MainActivity extends Activity {
         if (checkSelfPermission(Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) requestPermissions(new String[]{Manifest.permission.READ_CONTACTS}, CONTACTS);
         refresh();
     }
+    @Override protected void onPause() { super.onPause(); saveSmsMessage(); }
+    private void saveSmsMessage() { if (smsMessage != null) { String m=smsMessage.getText().toString().trim(); if (m.isEmpty()) m=DEFAULT_SMS; prefs.edit().putString("sms_message",m).apply(); } }
+    @Override public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == SMS) {
+            boolean granted = grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED;
+            if (!granted) {
+                smsSwitch.setChecked(false);
+                prefs.edit().putBoolean("sms_enabled", false).apply();
+                Toast.makeText(this, "SMS permission is required for automatic rejected-call SMS.", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
     private void pickContact() {
         Intent i = new Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Phone.CONTENT_URI); startActivityForResult(i, PICK);
     }

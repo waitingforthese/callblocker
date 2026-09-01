@@ -3,6 +3,9 @@ package com.rahul.selectedcallfilter;
 import android.content.SharedPreferences;
 import android.telecom.Call;
 import android.telecom.CallScreeningService;
+import android.telephony.SmsManager;
+import android.Manifest;
+import android.content.pm.PackageManager;
 
 /**
  * Allows only numbers explicitly stored in the app allow-list.
@@ -13,6 +16,8 @@ import android.telecom.CallScreeningService;
 public class SelectedCallScreeningService extends CallScreeningService {
     private static final String PREFS = "filter";
     private static final String ENABLED = "enabled";
+    private static final String SMS_ENABLED = "sms_enabled";
+    private static final String DEFAULT_SMS = "सध्या मी फोन घेऊ शकत नाही. ऑफिस मध्ये संपर्क करा.";
     @Override
     public void onScreenCall(Call.Details details) {
         SharedPreferences prefs = getSharedPreferences(PREFS, MODE_PRIVATE);
@@ -44,6 +49,14 @@ public class SelectedCallScreeningService extends CallScreeningService {
                     .setDisallowCall(true)
                     .setRejectCall(true)
                     .build());
+            // Send the configured SMS only after a rejected call.
+            if (!number.isEmpty() && prefs.getBoolean(SMS_ENABLED, false)
+                    && checkSelfPermission(Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED) {
+                String message = prefs.getString("sms_message", DEFAULT_SMS);
+                try {
+                    SmsManager.getDefault().sendTextMessage(number, null, message, null, null);
+                } catch (Exception ignored) { }
+            }
         }
     }
 

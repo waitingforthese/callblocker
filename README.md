@@ -1,25 +1,14 @@
-# Selected Contacts Only — Android APK project
+# Selected Contacts Only — V5
 
-## What it does
-- Master ON/OFF switch.
-- Select allowed people from the phone Contacts app.
-- When ON, only numbers in the local allow-list are permitted through Android CallScreeningService.
-- Other incoming calls are rejected and their normal blocked-call notification is suppressed.
-- No internet permission is requested.
+V5 keeps the V4 instant-reject allow-list behavior and adds an optional automatic SMS after a rejected incoming call.
 
-## Important limitation
-This app cannot force Airtel to play the network-level "not reachable/switched off" announcement. It rejects the call at Android call-screening level. The exact announcement heard by the caller depends on the device/network.
+- Allowed contacts: ALLOW
+- Other/unknown callers: instant REJECT
+- Rejected-call notifications/call log are not suppressed by the screening response
+- Optional automatic SMS, default message:
+  “सध्या मी फोन घेऊ शकत नाही. ऑफिस मध्ये संपर्क करा.”
+- SMS message can be edited in the app
+- SMS is sent only when the SMS switch is ON and SEND_SMS permission is granted
+- Airtel forwarding/network toggling is not used
 
-## Installation / setup
-1. Build and install the debug APK.
-2. Open the app and grant Contacts permission.
-3. Add the people you want to allow.
-4. Tap `Set as Call Screening app` and grant the Android Call Screening role.
-5. Turn `Allow only selected people` ON.
-6. Test from an allowed number and a non-allowed number.
-
-## Vivo note
-Vivo may apply battery/background restrictions. If call screening stops working, set this app to unrestricted battery/background usage and allow it to run automatically where the Vivo model exposes those controls.
-
-
-V4 notes: instant reject response is kept as setDisallowCall(true) + setRejectCall(true), with no skip-notification flag. Caller-side ringback can still vary by carrier/network; the app cannot force an Airtel “not reachable” announcement.
+Build with GitHub Actions using the included workflow.
