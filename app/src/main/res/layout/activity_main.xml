@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:orientation="vertical" android:background="@color/screen_bg">
 
     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
         android:orientation="horizontal" android:gravity="center_vertical" android:padding="14dp"
         android:background="@drawable/bg_header">
-        <ImageView android:layout_width="64dp" android:layout_height="64dp" android:src="@drawable/ic_shield_phone"
+        <ImageView android:layout_width="62dp" android:layout_height="62dp" android:src="@drawable/ic_shield_phone"
             android:contentDescription="App logo" />
         <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
             android:orientation="vertical" android:layout_marginStart="10dp">
@@ -17,6 +18,9 @@
             <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="फक्त निवडलेल्या संपर्कांना कॉल करू द्या"
                 android:textColor="#FFFFFF" android:textSize="12sp" android:layout_marginTop="2dp" />
         </LinearLayout>
+        <Button android:id="@+id/tutorialButton" android:layout_width="92dp" android:layout_height="48dp"
+            android:text="📖\nमार्गदर्शक" android:textColor="#FFFFFF" android:textSize="10sp" android:textStyle="bold"
+            android:background="@drawable/bg_outline_button" android:padding="2dp" />
     </LinearLayout>
 
     <ScrollView android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1"
@@ -24,7 +28,7 @@
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="12dp">
 
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal"
-                android:gravity="center_vertical" android:background="@drawable/bg_card">
+                android:gravity="center_vertical" android:background="@drawable/bg_card" android:padding="10dp">
                 <ImageView android:layout_width="52dp" android:layout_height="52dp" android:src="@drawable/ic_shield_phone" android:contentDescription="Protection" />
                 <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical" android:layout_marginStart="10dp">
                     <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Master Protection" android:textColor="@color/text_dark" android:textStyle="bold" android:textSize="19sp" />
@@ -56,7 +60,36 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginTop="10dp" android:background="@drawable/bg_card">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginTop="10dp" android:background="@drawable/bg_card" android:padding="10dp">
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="📊  फिल्टर आणि SMS आकडेवारी" android:textColor="@color/text_dark" android:textStyle="bold" android:textSize="17sp" />
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="8dp">
+                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:background="@drawable/bg_stat" android:padding="8dp" android:gravity="center" android:orientation="vertical">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="आज" android:textColor="@color/blue_primary" android:textStyle="bold" android:textSize="14sp" />
+                        <TextView android:id="@+id/todayCalls" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textColor="@color/text_dark" android:textStyle="bold" android:textSize="20sp" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="☎ कॉल कट" android:textColor="#D32F2F" android:textSize="11sp" />
+                        <TextView android:id="@+id/todaySms" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textColor="@color/text_dark" android:textStyle="bold" android:textSize="18sp" android:layout_marginTop="3dp" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="✉ SMS पाठवले" android:textColor="#188A43" android:textSize="11sp" />
+                    </LinearLayout>
+                    <Space android:layout_width="5dp" android:layout_height="1dp" />
+                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:background="@drawable/bg_stat" android:padding="8dp" android:gravity="center" android:orientation="vertical">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="काल" android:textColor="@color/green" android:textStyle="bold" android:textSize="14sp" />
+                        <TextView android:id="@+id/yesterdayCalls" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textColor="@color/text_dark" android:textStyle="bold" android:textSize="20sp" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="☎ कॉल कट" android:textColor="#D32F2F" android:textSize="11sp" />
+                        <TextView android:id="@+id/yesterdaySms" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textColor="@color/text_dark" android:textStyle="bold" android:textSize="18sp" android:layout_marginTop="3dp" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="✉ SMS पाठवले" android:textColor="#188A43" android:textSize="11sp" />
+                    </LinearLayout>
+                    <Space android:layout_width="5dp" android:layout_height="1dp" />
+                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:background="@drawable/bg_stat" android:padding="8dp" android:gravity="center" android:orientation="vertical">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="परवा" android:textColor="#6A1B9A" android:textStyle="bold" android:textSize="14sp" />
+                        <TextView android:id="@+id/dayBeforeCalls" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textColor="@color/text_dark" android:textStyle="bold" android:textSize="20sp" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="☎ कॉल कट" android:textColor="#D32F2F" android:textSize="11sp" />
+                        <TextView android:id="@+id/dayBeforeSms" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textColor="@color/text_dark" android:textStyle="bold" android:textSize="18sp" android:layout_marginTop="3dp" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="✉ SMS पाठवले" android:textColor="#188A43" android:textSize="11sp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginTop="10dp" android:background="@drawable/bg_card" android:padding="10dp">
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
                     <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="📩  Automatic SMS on Rejected Call" android:textColor="@color/text_dark" android:textStyle="bold" android:textSize="16sp" />
                     <Switch android:id="@+id/smsSwitch" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="OFF" android:textStyle="bold" />
@@ -66,14 +99,14 @@
                     android:background="@drawable/bg_sms" android:hint="SMS message" android:textSize="14sp" android:inputType="textCapSentences|textMultiLine" android:minLines="2" />
             </LinearLayout>
 
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginTop="12dp" android:background="@drawable/bg_card" android:padding="12dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginTop="10dp" android:background="@drawable/bg_card" android:padding="12dp">
                 <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="👥  Allowed Contacts" android:textColor="@color/text_dark" android:textStyle="bold" android:textSize="18sp" />
                 <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="3dp" android:text="फक्त निवडलेल्या contacts ना incoming call मिळेल." android:textColor="@color/text_secondary" android:textSize="12sp" />
-                <Button android:id="@+id/openAllowedContacts" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="👥  Manage Allowed Contacts" android:textColor="#FFFFFF" android:textStyle="bold" android:background="@drawable/bg_blue_button" />
+                <Button android:id="@+id/openAllowedContacts" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="👥  MANAGE ALLOWED CONTACTS" android:textColor="#FFFFFF" android:textStyle="bold" android:background="@drawable/bg_blue_button" />
             </LinearLayout>
 
             <Button android:id="@+id/chooseScreening" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp"
-                android:text="⚙  Set / Check Call Screening App" android:textColor="#FFFFFF" android:textStyle="bold" android:background="@drawable/bg_blue_button" />
+                android:text="⚙  SET / CHECK CALL SCREENING APP" android:textColor="#FFFFFF" android:textStyle="bold" android:background="@drawable/bg_blue_button" />
 
             <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Privacy: Contacts are used only to decide who is allowed to call you."
                 android:textColor="@color/text_secondary" android:textSize="11sp" android:gravity="center" android:layout_marginTop="12dp" android:layout_marginBottom="10dp" />

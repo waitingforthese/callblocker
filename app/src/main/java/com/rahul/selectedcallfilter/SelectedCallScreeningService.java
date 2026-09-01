@@ -6,6 +6,9 @@ import android.telecom.CallScreeningService;
 import android.telephony.SmsManager;
 import android.Manifest;
 import android.content.pm.PackageManager;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * Allows only numbers explicitly stored in the app allow-list.
@@ -44,6 +47,10 @@ public class SelectedCallScreeningService extends CallScreeningService {
                     .setDisallowCall(false)
                     .build());
         } else {
+            // Count every rejected incoming call for the dashboard.
+            String day = new SimpleDateFormat("yyyy-MM-dd", Locale.US).format(new Date());
+            prefs.edit().putInt("rejected_calls_" + day, prefs.getInt("rejected_calls_" + day, 0) + 1).apply();
+
             // Instant reject. Do NOT use setSkipNotification(true).
             respondToCall(details, new CallResponse.Builder()
                     .setDisallowCall(true)
@@ -55,6 +62,7 @@ public class SelectedCallScreeningService extends CallScreeningService {
                 String message = prefs.getString("sms_message", DEFAULT_SMS);
                 try {
                     SmsManager.getDefault().sendTextMessage(number, null, message, null, null);
+                    prefs.edit().putInt("sent_sms_" + day, prefs.getInt("sent_sms_" + day, 0) + 1).apply();
                 } catch (Exception ignored) { }
             }
         }
