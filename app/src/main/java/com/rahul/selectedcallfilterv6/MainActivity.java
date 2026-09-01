@@ -1,5 +1,4 @@
-package com.rahul.selectedcallfilterv6;
-
+package com.rahul.selectedcallfilterv6v6;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
@@ -10,7 +9,6 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.app.role.RoleManager;
 import android.widget.*;
-import com.rahul.selectedcallfilterv6.R;
 import java.util.*;
 
 public class MainActivity extends Activity {
