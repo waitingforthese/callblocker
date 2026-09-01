@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Selected Contacts Only V6</string>
+    <string name="developer">Developed by Rahul Jagtap Patil</string>
+    <string name="developer_phone">9921038999</string>
 </resources>
