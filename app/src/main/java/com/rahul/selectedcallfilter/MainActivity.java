@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.app.role.RoleManager;
 import android.widget.*;
+import android.telecom.TelecomManager;
 import java.util.*;
 
 public class MainActivity extends Activity {
@@ -23,7 +24,18 @@ public class MainActivity extends Activity {
         super.onCreate(b); setContentView(R.layout.activity_main);
         prefs = getSharedPreferences("filter", MODE_PRIVATE);
         master = findViewById(R.id.masterSwitch); status = findViewById(R.id.status); list = findViewById(R.id.list);
-        master.setChecked(prefs.getBoolean("enabled", false)); master.setOnCheckedChangeListener((v,c)->{ prefs.edit().putBoolean("enabled",c).apply(); refresh(); });
+        master.setChecked(prefs.getBoolean("enabled", false));
+        master.setOnCheckedChangeListener((v,c)->{
+            if (c && !isCallScreeningRoleHeld()) {
+                master.setChecked(false);
+                prefs.edit().putBoolean("enabled", false).apply();
+                Toast.makeText(this, "First set this app as the Call Screening app.", Toast.LENGTH_LONG).show();
+                openScreeningSettings();
+                return;
+            }
+            prefs.edit().putBoolean("enabled",c).apply();
+            refresh();
+        });
         findViewById(R.id.selectContact).setOnClickListener(v -> pickContact());
         findViewById(R.id.chooseScreening).setOnClickListener(v -> openScreeningSettings());
         if (checkSelfPermission(Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) requestPermissions(new String[]{Manifest.permission.READ_CONTACTS}, CONTACTS);
@@ -41,11 +53,21 @@ public class MainActivity extends Activity {
     }}
     private String normalize(String n){ String d=n==null?"":n.replaceAll("\\D",""); return d.length()>10?d.substring(d.length()-10):d; }
     private void refresh(){
-        boolean on=prefs.getBoolean("enabled",false); status.setText(on?"FILTER ON — only selected numbers are allowed":"FILTER OFF");
+        boolean on=prefs.getBoolean("enabled",false); status.setText(on ? "FILTER ON — only selected numbers are allowed" : "FILTER OFF");
         StringBuilder s=new StringBuilder("Allowed contacts:\n"); boolean any=false;
         Map<String,?> all=prefs.getAll(); for(String k:all.keySet()) if(k.startsWith("allow_") && Boolean.TRUE.equals(all.get(k))){ String n=k.substring(6); s.append("• ").append(all.get("name_"+n)).append("  (").append(n).append(")\n"); any=true; }
         list.setText(any?s.toString():"Allowed contacts:\nNo contacts selected yet.");
     }
+    private boolean isCallScreeningRoleHeld() {
+        try {
+            RoleManager rm = getSystemService(RoleManager.class);
+            return rm != null && rm.isRoleAvailable(RoleManager.ROLE_CALL_SCREENING)
+                    && rm.isRoleHeld(RoleManager.ROLE_CALL_SCREENING);
+        } catch (Exception ignored) {
+            return false;
+        }
+    }
+
     private void openScreeningSettings(){
         try {
             RoleManager rm = getSystemService(RoleManager.class);
