@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.app.role.RoleManager;
 import android.widget.*;
-import android.telecom.TelecomManager;
 import java.util.*;
 
 public class MainActivity extends Activity {
@@ -18,7 +17,7 @@ public class MainActivity extends Activity {
     private static final int CONTACTS = 11;
     private SharedPreferences prefs;
     private Switch master;
-    private TextView status, list;
+    private TextView status, list, screeningStatus, allowedCount, smsStatus;
     private Switch smsSwitch;
     private EditText smsMessage;
     private static final int SMS = 12;
@@ -30,6 +29,9 @@ public class MainActivity extends Activity {
         master = findViewById(R.id.masterSwitch); status = findViewById(R.id.status); list = findViewById(R.id.list);
         smsSwitch = findViewById(R.id.smsSwitch);
         smsMessage = findViewById(R.id.smsMessage);
+        screeningStatus = findViewById(R.id.screeningStatus);
+        allowedCount = findViewById(R.id.allowedCount);
+        smsStatus = findViewById(R.id.smsStatus);
         smsSwitch.setChecked(prefs.getBoolean("sms_enabled", false));
         smsMessage.setText(prefs.getString("sms_message", DEFAULT_SMS));
         smsSwitch.setOnCheckedChangeListener((v,c)-> {
@@ -55,7 +57,9 @@ public class MainActivity extends Activity {
         findViewById(R.id.chooseScreening).setOnClickListener(v -> openScreeningSettings());
         if (checkSelfPermission(Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) requestPermissions(new String[]{Manifest.permission.READ_CONTACTS}, CONTACTS);
         refresh();
+        updateScreeningStatus();
     }
+    @Override protected void onResume() { super.onResume(); updateScreeningStatus(); refresh(); }
     @Override protected void onPause() { super.onPause(); saveSmsMessage(); }
     private void saveSmsMessage() { if (smsMessage != null) { String m=smsMessage.getText().toString().trim(); if (m.isEmpty()) m=DEFAULT_SMS; prefs.edit().putString("sms_message",m).apply(); } }
     @Override public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -83,9 +87,18 @@ public class MainActivity extends Activity {
     private String normalize(String n){ String d=n==null?"":n.replaceAll("\\D",""); return d.length()>10?d.substring(d.length()-10):d; }
     private void refresh(){
         boolean on=prefs.getBoolean("enabled",false); status.setText(on ? "FILTER ON — only selected numbers are allowed" : "FILTER OFF");
-        StringBuilder s=new StringBuilder("Allowed contacts:\n"); boolean any=false;
-        Map<String,?> all=prefs.getAll(); for(String k:all.keySet()) if(k.startsWith("allow_") && Boolean.TRUE.equals(all.get(k))){ String n=k.substring(6); s.append("• ").append(all.get("name_"+n)).append("  (").append(n).append(")\n"); any=true; }
+        StringBuilder s=new StringBuilder("Allowed contacts:\n"); boolean any=false; int count=0;
+        Map<String,?> all=prefs.getAll(); for(String k:all.keySet()) if(k.startsWith("allow_") && Boolean.TRUE.equals(all.get(k))){ String n=k.substring(6); s.append("• ").append(all.get("name_"+n)).append("  (").append(n).append(")\n"); any=true; count++; }
         list.setText(any?s.toString():"Allowed contacts:\nNo contacts selected yet.");
+        if (allowedCount != null) allowedCount.setText(String.valueOf(count));
+        if (smsStatus != null) smsStatus.setText(prefs.getBoolean("sms_enabled", false) ? "ON" : "OFF");
+    }
+
+    private void updateScreeningStatus() {
+        if (screeningStatus == null) return;
+        boolean held = isCallScreeningRoleHeld();
+        screeningStatus.setText(held ? "✓  Call Screening Active  •  Protected" : "⚠  Call Screening not selected yet");
+        screeningStatus.setTextColor(held ? 0xFF087A34 : 0xFF9A6700);
     }
     private boolean isCallScreeningRoleHeld() {
         try {

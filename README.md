@@ -2,7 +2,7 @@
 
 Allowed-list call filter with instant reject and optional automatic SMS for rejected calls.
 
-V6 uses a NEW applicationId (`com.rahul.selectedcallfilterv6`) to avoid installation conflicts with earlier builds using the old package id.
+V6 uses a NEW applicationId (`com.rahul.selectedcallfilterv6v6`) to avoid installation conflicts with earlier builds using the old package id.
 
 Behavior:
 - Allowed list -> allow

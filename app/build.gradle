@@ -1,5 +1,5 @@
 plugins { id 'com.android.application' }
 
-android { namespace 'com.rahul.selectedcallfilter'; compileSdk 35
-    defaultConfig { applicationId 'com.rahul.selectedcallfilterv6'; minSdk 29; targetSdk 35; versionCode 7; versionName '1.0.7' }
+android { namespace 'com.rahul.selectedcallfilterv6'; compileSdk 35
+    defaultConfig { applicationId 'com.rahul.selectedcallfilterv6v6'; minSdk 29; targetSdk 35; versionCode 7; versionName '1.0.7' }
 }
