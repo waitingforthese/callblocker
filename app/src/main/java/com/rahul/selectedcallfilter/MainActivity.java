@@ -1,0 +1,60 @@
+package com.rahul.selectedcallfilter;
+
+import android.Manifest;
+import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.app.role.RoleManager;
+import android.widget.*;
+import java.util.*;
+
+public class MainActivity extends Activity {
+    private static final int PICK = 10;
+    private static final int CONTACTS = 11;
+    private SharedPreferences prefs;
+    private Switch master;
+    private TextView status, list;
+
+    @Override public void onCreate(Bundle b) {
+        super.onCreate(b); setContentView(R.layout.activity_main);
+        prefs = getSharedPreferences("filter", MODE_PRIVATE);
+        master = findViewById(R.id.masterSwitch); status = findViewById(R.id.status); list = findViewById(R.id.list);
+        master.setChecked(prefs.getBoolean("enabled", false)); master.setOnCheckedChangeListener((v,c)->{ prefs.edit().putBoolean("enabled",c).apply(); refresh(); });
+        findViewById(R.id.selectContact).setOnClickListener(v -> pickContact());
+        findViewById(R.id.chooseScreening).setOnClickListener(v -> openScreeningSettings());
+        if (checkSelfPermission(Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) requestPermissions(new String[]{Manifest.permission.READ_CONTACTS}, CONTACTS);
+        refresh();
+    }
+    private void pickContact() {
+        Intent i = new Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Phone.CONTENT_URI); startActivityForResult(i, PICK);
+    }
+    @Override protected void onActivityResult(int r,int c,Intent d){ super.onActivityResult(r,c,d); if(r==PICK && c==RESULT_OK && d!=null){
+        Uri u=d.getData(); String[] p={ContactsContract.CommonDataKinds.Phone.NUMBER, ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME};
+        try(android.database.Cursor cur=getContentResolver().query(u,p,null,null,null)){ if(cur!=null && cur.moveToFirst()){
+            String num=cur.getString(0), name=cur.getString(1); String key=normalize(num);
+            prefs.edit().putBoolean("allow_"+key,true).putString("name_"+key,name).apply(); refresh();
+        }}
+    }}
+    private String normalize(String n){ String d=n==null?"":n.replaceAll("\\D",""); return d.length()>10?d.substring(d.length()-10):d; }
+    private void refresh(){
+        boolean on=prefs.getBoolean("enabled",false); status.setText(on?"FILTER ON — only selected numbers are allowed":"FILTER OFF");
+        StringBuilder s=new StringBuilder("Allowed contacts:\n"); boolean any=false;
+        Map<String,?> all=prefs.getAll(); for(String k:all.keySet()) if(k.startsWith("allow_") && Boolean.TRUE.equals(all.get(k))){ String n=k.substring(6); s.append("• ").append(all.get("name_"+n)).append("  (").append(n).append(")\n"); any=true; }
+        list.setText(any?s.toString():"Allowed contacts:\nNo contacts selected yet.");
+    }
+    private void openScreeningSettings(){
+        try {
+            RoleManager rm = getSystemService(RoleManager.class);
+            if (rm != null && rm.isRoleAvailable(RoleManager.ROLE_CALL_SCREENING)) {
+                startActivityForResult(rm.createRequestRoleIntent(RoleManager.ROLE_CALL_SCREENING), 20);
+                return;
+            }
+        } catch(Exception ignored) { }
+        startActivity(new Intent("android.settings.MANAGE_DEFAULT_APPS_SETTINGS"));
+        Toast.makeText(this,"Select this app as the Call Screening app if Vivo shows the option.",Toast.LENGTH_LONG).show();
+    }
+}
