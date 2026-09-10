@@ -1,14 +1,28 @@
-# Selected Contacts Only V6
+# Chandra Panchang Alarm — Prototype V1
 
-Allowed-list call filter with instant reject and optional automatic SMS for rejected calls.
+Android/Kotlin prototype for a location-aware Chandra Rashi / Nakshatra / Pada alarm.
 
-V6 uses a NEW applicationId (`com.rahul.selectedcallfilterv6`) to avoid installation conflicts with earlier builds using the old package id.
+## Current prototype
+- Marathi UI
+- Daund validation reference
+- Rashi/Nakshatra/Pada data model
+- Location permission request
+- Notification permission request
+- Exact test alarm
+- Exact-alarm permission handling
+- Alarm BroadcastReceiver
 
-Behavior:
-- Allowed list -> allow
-- Any other/unknown number -> reject
-- Optional SMS after rejection
-- Rejected-call notifications are not suppressed
-- Master ON/OFF
+## Important
+The astronomical engine is intentionally NOT hard-coded to 17-Aug-2026 4:19 PM.
+The next development step is to integrate a properly licensed astronomical ephemeris
+(Swiss Ephemeris or an equivalent implementation), apply Lahiri/Chitrapaksha sidereal
+calculation, and numerically solve the exact Rashi/Nakshatra/Pada boundary times.
 
-Default SMS: “सध्या मी फोन घेऊ शकत नाही. ऑफिस मध्ये संपर्क करा.”
+Validation target supplied for this project:
+Daund, Maharashtra — 17-Aug-2026 — Cancer -> Leo — 4:19 PM.
+
+## Open in Android Studio
+Open this folder as a Gradle project.
+
+## Master Alarm Switch V1
+Home screen now has a master alarm ON/OFF switch beside Settings. OFF cancels all scheduled Life Alarm alarms, clears current notifications, and stops active Aaradhana voice. Individual alarm preferences are preserved and restored when the master is turned ON.
