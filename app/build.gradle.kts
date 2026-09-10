@@ -19,6 +19,23 @@ android {
         versionName = "3.8"
     }
 
+    signingConfigs {
+        // Stable local/CI debug signing key. This prevents package/signature
+        // conflicts between successive Life Alarm debug APKs.
+        create("stableDebug") {
+            storeFile = file("lifealarm-debug.keystore")
+            storePassword = "lifealarm2026"
+            keyAlias = "lifealarm_debug"
+            keyPassword = "lifealarm2026"
+        }
+    }
+
+    buildTypes {
+        getByName("debug") {
+            signingConfig = signingConfigs.getByName("stableDebug")
+        }
+    }
+
     buildFeatures {
         compose = true
     }

@@ -1,0 +1,13 @@
+LifeAlarm – Package Conflict Fix V1
+
+BASELINE PRESERVED:
+LifeAlarm_V14_2_2_6_GOCHAR_TARA_AARADHANA_PACKAGE_FIX
+
+Change made ONLY to build/signing configuration:
+- applicationId remains com.mahaesuvidha.chandrapanchangalarm.
+- Added a stable debug signing keystore: app/lifealarm-debug.keystore.
+- Debug builds now use the stableDebug signing configuration.
+- Existing Framework, Gochar, Tara Aaradhana, notification, Kundli and alarm source was not intentionally changed.
+
+Important:
+An APK already installed on a phone with a different signing certificate cannot be updated by this key. That old installation must be removed once. After installing this stable-signed APK, future APKs built from this source can update it without the package-signature conflict.
