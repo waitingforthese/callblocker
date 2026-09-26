@@ -23,7 +23,9 @@ public class MainActivity extends Activity {
     private TextView todayCalls, todaySms, yesterdayCalls, yesterdaySms, dayBeforeCalls, dayBeforeSms;
     private Switch smsSwitch;
     private EditText smsMessage;
+    private EditText callEndSmsMessage;
     private static final int SMS = 12;
+    private static final int PHONE_STATE = 13;
     private static final String DEFAULT_SMS = "सध्या मी फोन घेऊ शकत नाही. ऑफिस मध्ये संपर्क करा.";
 
     @Override public void onCreate(Bundle b) {
@@ -43,6 +45,7 @@ public class MainActivity extends Activity {
         master = findViewById(R.id.masterSwitch); status = findViewById(R.id.status);
         smsSwitch = findViewById(R.id.smsSwitch);
         smsMessage = findViewById(R.id.smsMessage);
+        callEndSmsMessage = findViewById(R.id.callEndSmsMessage);
         screeningStatus = findViewById(R.id.screeningStatus);
         allowedCount = findViewById(R.id.allowedCount);
         smsStatus = findViewById(R.id.smsStatus);
@@ -55,6 +58,30 @@ public class MainActivity extends Activity {
         smsSwitch.setChecked(prefs.getBoolean("sms_enabled", false));
         smsSwitch.setText(smsSwitch.isChecked() ? "ON" : "OFF");
         smsMessage.setText(prefs.getString("sms_message", DEFAULT_SMS));
+        callEndSmsMessage.setText(prefs.getString("call_end_sms_message", DEFAULT_SMS));
+
+        Switch callEndSmsSwitch = findViewById(R.id.callEndSmsSwitch);
+        if (callEndSmsSwitch != null) {
+            boolean callEndOn = prefs.getBoolean("call_end_sms_enabled", false);
+            callEndSmsSwitch.setChecked(callEndOn);
+            callEndSmsSwitch.setText(callEndOn ? "ON" : "OFF");
+            callEndSmsSwitch.setOnCheckedChangeListener((v, checked) -> {
+                if (checked) {
+                    if (checkSelfPermission(Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
+                        requestPermissions(new String[]{Manifest.permission.SEND_SMS}, SMS);
+                    }
+                    if (checkSelfPermission(Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+                        requestPermissions(new String[]{Manifest.permission.READ_PHONE_STATE}, PHONE_STATE);
+                    }
+                }
+                callEndSmsSwitch.setText(checked ? "ON" : "OFF");
+                prefs.edit().putBoolean("call_end_sms_enabled", checked).apply();
+                Toast.makeText(this, checked ? "✓ Call-End SMS Service ON" : "⏹ Call-End SMS Service OFF", Toast.LENGTH_SHORT).show();
+            });
+        }
+        if (checkSelfPermission(Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.READ_PHONE_STATE}, PHONE_STATE);
+        }
         smsSwitch.setOnCheckedChangeListener((v,c)-> {
             if (c && checkSelfPermission(Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(new String[]{Manifest.permission.SEND_SMS}, SMS);
@@ -88,7 +115,18 @@ public class MainActivity extends Activity {
     }
     @Override protected void onResume() { super.onResume(); updateScreeningStatus(); refresh(); }
     @Override protected void onPause() { super.onPause(); saveSmsMessage(); }
-    private void saveSmsMessage() { if (smsMessage != null) { String m=smsMessage.getText().toString().trim(); if (m.isEmpty()) m=DEFAULT_SMS; prefs.edit().putString("sms_message",m).apply(); } }
+    private void saveSmsMessage() {
+        if (smsMessage != null) {
+            String m=smsMessage.getText().toString().trim();
+            if (m.isEmpty()) m=DEFAULT_SMS;
+            prefs.edit().putString("sms_message",m).apply();
+        }
+        if (callEndSmsMessage != null) {
+            String m=callEndSmsMessage.getText().toString().trim();
+            if (m.isEmpty()) m=DEFAULT_SMS;
+            prefs.edit().putString("call_end_sms_message",m).apply();
+        }
+    }
     @Override public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == SMS) {
@@ -159,7 +197,8 @@ public class MainActivity extends Activity {
                         "2. 'MANAGE ALLOWED CONTACTS' मधून फक्त ज्या contacts चे कॉल घ्यायचे आहेत ते निवडा.\n\n" +
                         "3. Master Protection ON केल्यावर निवडलेल्या contacts व्यतिरिक्त येणारे कॉल कट होतील.\n\n" +
                         "4. Automatic SMS ON केल्यास कट झालेल्या कॉलवर तुमचा संदेश पाठवला जाईल.\n\n" +
-                        "5. खालील आकडेवारीमध्ये आज, काल आणि परवा किती कॉल कट झाले व किती SMS पाठवले हे दिसेल.")
+                        "5. Call-End SMS Service ON केल्यास incoming call तुम्ही उचलला, कट केला किंवा उचलला नाही तरी call संपल्यानंतर fixed SMS जाईल.\n\n" +
+                        "6. खालील आकडेवारीमध्ये आज, काल आणि परवा किती कॉल कट झाले व किती SMS पाठवले हे दिसेल.")
                 .setPositiveButton("समजले", null)
                 .show();
     }

@@ -100,6 +100,17 @@
             </LinearLayout>
 
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginTop="10dp" android:background="@drawable/bg_card" android:padding="12dp">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="📲  Call-End SMS Service" android:textColor="@color/text_dark" android:textStyle="bold" android:textSize="17sp" />
+                    <Switch android:id="@+id/callEndSmsSwitch" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="OFF" android:textStyle="bold" />
+                </LinearLayout>
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="5dp" android:text="Incoming call तुम्ही उचलला, कट केला किंवा उचलला नाही तरी call संपल्यानंतर fixed SMS पाठवला जाईल." android:textColor="@color/text_secondary" android:textSize="12sp" />
+                <EditText android:id="@+id/callEndSmsMessage" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_sms" android:hint="Call-End SMS message" android:textSize="14sp" android:inputType="textCapSentences|textMultiLine" android:minLines="2" />
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="5dp" android:text="हा SMS Filter SMS पेक्षा वेगळा आहे. Incoming call answer / cut / unanswered आणि Outgoing call संपल्यानंतर हा SMS पाठवला जाईल." android:textColor="@color/text_secondary" android:textSize="11sp" />
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginTop="10dp" android:background="@drawable/bg_card" android:padding="12dp">
                 <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="👥  Allowed Contacts" android:textColor="@color/text_dark" android:textStyle="bold" android:textSize="18sp" />
                 <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="3dp" android:text="फक्त निवडलेल्या contacts ना incoming call मिळेल." android:textColor="@color/text_secondary" android:textSize="12sp" />
                 <Button android:id="@+id/openAllowedContacts" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="👥  MANAGE ALLOWED CONTACTS" android:textColor="#FFFFFF" android:textStyle="bold" android:background="@drawable/bg_blue_button" />

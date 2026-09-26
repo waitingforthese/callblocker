@@ -2,7 +2,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <application android:theme="@style/Theme.SelectedContactsOnly" android:label="RECEIVED CALL FILTER" android:icon="@drawable/ic_shield_phone" android:allowBackup="false" android:supportsRtl="true">
+        <receiver
+                android:name=".IncomingCallSmsReceiver"
+                android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.PHONE_STATE" />
+            </intent-filter>
+        </receiver>
+
         <activity android:name="com.rahul.selectedcallfilter.MainActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
