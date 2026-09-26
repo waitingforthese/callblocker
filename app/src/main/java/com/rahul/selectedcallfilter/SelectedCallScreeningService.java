@@ -25,6 +25,18 @@ public class SelectedCallScreeningService extends CallScreeningService {
     public void onScreenCall(Call.Details details) {
         SharedPreferences prefs = getSharedPreferences(PREFS, MODE_PRIVATE);
 
+        // This app must NEVER send the auto-reply SMS for an outgoing call.
+        // Android can deliver screening callbacks for more than one call direction
+        // depending on the device/telecom implementation, so explicitly accept
+        // outgoing calls without filtering or sending SMS.
+        if (details.getCallDirection() != Call.Details.DIRECTION_INCOMING) {
+            respondToCall(details, new CallResponse.Builder()
+                    .setDisallowCall(false)
+                    .setRejectCall(false)
+                    .build());
+            return;
+        }
+
         if (!prefs.getBoolean("enabled", false)) {
             respondToCall(details, new CallResponse.Builder()
                     .setDisallowCall(false)
@@ -55,6 +67,8 @@ public class SelectedCallScreeningService extends CallScreeningService {
             respondToCall(details, new CallResponse.Builder()
                     .setDisallowCall(true)
                     .setRejectCall(true)
+                    .setSkipNotification(false)
+                    .setSkipCallLog(false)
                     .build());
             // Send the configured SMS only after a rejected call.
             if (!number.isEmpty() && prefs.getBoolean(SMS_ENABLED, false)
